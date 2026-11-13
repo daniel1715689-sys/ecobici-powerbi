@@ -15,6 +15,9 @@ Fuente: Diccionario de datos y cicloestaciones Ecobici (https://www.datos.cdmx.g
 - Periodo: enero a marzo de 2026
 - Volumen: 4,707,285 viajes originales; 4,705,259 después de la limpieza
 
+- Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
+  faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
+
 ## Limpieza de datos
 Se eliminaron 2,026 registros (0.04% del total) con estas reglas:
 
