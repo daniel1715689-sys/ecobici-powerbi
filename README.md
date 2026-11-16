@@ -6,7 +6,50 @@ Análisis de viajes de Ecobici CDMX en Power BI
 Análisis de los viajes de Ecobici en Power BI para identificar en qué
 estaciones y horarios faltan o sobran bicicletas.
 
-**Estado:** en construcción.
+**Estado:** en construcción. Modelo y medidas terminados; reporte en proceso.
+
+## Pregunta de negocio
+
+¿En qué estaciones y horarios debería Ecobici mover bicicletas para que no
+falten ni sobren?
+
+## Hallazgos preliminares
+
+- **Uso diario:** en promedio se realizan 52,280 viajes por día.
+- **Duración:** un viaje dura en promedio 15.2 minutos, y casi no cambia de
+  un mes a otro (15.0 en enero, 15.2 en febrero y marzo).
+- **Uso laboral:** el 79.9% de los viajes ocurre de lunes a viernes, aunque esos
+  días son el 71% del periodo (64 de 90 días).
+- **Estaciones que acumulan bicicletas:** tres estaciones contiguas concentran
+  el mayor excedente del sistema.
+
+| Estación | Salidas | Llegadas | Balance neto |
+| --- | --- | --- | --- |
+| 271-272 · Jesus Garcia y Carlos J. Meneses | 27,604 | 48,251 | +20,647 |
+| 266-267 · Jesus Garcia y Carlos J. Meneses | 11,462 | 20,796 | +9,334 |
+| 273-274 · Luis Donaldo Colosio y Jesus Garcia | 14,880 | 20,980 | +6,100 |
+
+  Por confirmar: estas estaciones están junto a la terminal de Buenavista, lo
+  que sugiere viajes para conectar con tren y metro.
+
+- **Estaciones que pierden bicicletas:** 376 estaciones tuvieron más salidas
+  que llegadas en el trimestre. Las de mayor déficit:
+
+| Estación | Salidas | Llegadas | Balance neto |
+| --- | --- | --- | --- |
+| 208 · Hesiodo y Lamartine | 29,686 | 25,129 | -4,557 |
+| 237-238 · Andres Bello y George Eliot | 17,375 | 13,826 | -3,549 |
+| 495 · Amado Nervo y Avenida de los Maestros | 16,610 | 13,251 | -3,359 |
+
+- **Uso por mes:** marzo fue el mes con más viajes, 8.1% arriba de febrero.
+  Febrero casi iguala a enero con tres días menos, por lo que tuvo el
+  promedio diario más alto.
+
+| Mes | Viajes | Variación mensual | Viajes por día |
+| --- | --- | --- | --- |
+| Enero | 1,524,681 | | 49,183 |
+| Febrero | 1,528,014 | +0.2% | 54,572 |
+| Marzo | 1,652,488 | +8.1% | 53,306 |
 
 ## Datos
 Fuente: Datos abiertos de Ecobici (ecobici.cdmx.gob.mx/datos-abiertos)
@@ -18,17 +61,62 @@ Fuente: Diccionario de datos y cicloestaciones Ecobici (https://www.datos.cdmx.g
 - Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
   faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
 
+- Catálogo de cicloestaciones: se descarga en formato .dbf y se convirtió a
+  Excel para cargarlo en Power BI
+
 ## Limpieza de datos
 Se eliminaron 2,102 registros (0.04% del total) con estas reglas:
 
 | Regla | Registros eliminados |
+| --- | --- |
 | Duración menor a 1 minuto o mayor a 180 minutos | 1,737 |
 | Estación de retiro o de arribo vacía | 0 |
 | Edad fuera del rango de 16 a 90 años | 289 |
 | Viajes iniciados el 31 de diciembre de 2025 | 76 |
 
-Los viajes de menos de 1 minuto suelen ser bicicletas devueltas de inmediato,
-y los de más de 180 minutos, bicicletas no ancladas correctamente.
+Otras transformaciones en Power Query:
+
+- Fechas leídas con configuración regional Español (México), porque vienen en
+  formato día/mes/año.
+- Identificadores de estación tratados como texto, para conservar los ceros a
+  la izquierda (`059`) y los identificadores dobles (`271-272`).
+- Columnas calculadas: duración en minutos, hora del día, grupo de edad y ruta.
+
+## Modelo de datos
+
+Esquema de estrella con una tabla de hechos y tres dimensiones:
+
+| Tabla | Tipo | Contenido |
+| --- | --- | --- |
+| Viajes | Hechos | Un renglón por viaje |
+| Estaciones | Dimensión | Identificador, nombre, colonia, alcaldía, latitud y longitud |
+| Calendario | Dimensión | Un renglón por día: año, mes, día de la semana y tipo de día |
+| Horas | Dimensión | 24 renglones: hora y franja horaria |
+
+`Estaciones` se relaciona dos veces con `Viajes`: por estación de retiro
+(relación activa) y por estación de arribo (relación inactiva, que se activa
+en la medida `Llegadas` con `USERELATIONSHIP`).
+
+<!-- PENDIENTE: captura de la vista de modelo
+![Modelo de datos](images/modelo.png)
+-->
+
+## Medidas DAX
+
+El reporte usa 9 medidas principales y 3 de apoyo. La principal es `Balance Neto` (llegadas menos
+salidas): un valor negativo indica que la estación pierde bicicletas y uno
+positivo, que las acumula. Todas están documentadas en
+[dax/medidas.md](dax/medidas.md).
+
+## Limitaciones
+
+- El análisis cubre 3 meses, por lo que no refleja estacionalidad.
+- El balance neto mide el flujo de viajes, no cuántas bicicletas había en
+  cada estación.
+- 40 salidas y 18 llegadas corresponden a estaciones que no aparecen en el
+  catálogo de cicloestaciones y se muestran sin nombre.
+- Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
+  faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
 
 ## Limitaciones
 - 40 viajes corresponden a estaciones que no aparecen en el catálogo
@@ -38,3 +126,10 @@ y los de más de 180 minutos, bicicletas no ancladas correctamente.
 
 ## Herramientas
 Power BI Desktop, Power Query, DAX
+
+## Cómo reproducirlo
+
+1. Descarga los CSV de viajes desde la fuente y colócalos en `data/raw/viajes/`.
+2. Descarga el catálogo de cicloestaciones (ver `data/README.md`).
+3. Abre `report/ecobici.pbix` y actualiza la ruta de la carpeta de datos.
+4. Actualiza los datos.
