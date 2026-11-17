@@ -8,6 +8,8 @@ estaciones y horarios faltan o sobran bicicletas.
 
 **Estado:** en construcción. Modelo y medidas terminados; reporte en proceso.
 
+![Página de resumen del reporte](images/portada.png)
+
 ## Pregunta de negocio
 
 ¿En qué estaciones y horarios debería Ecobici mover bicicletas para que no
@@ -50,6 +52,21 @@ falten ni sobren?
 | Enero | 1,524,681 | | 49,183 |
 | Febrero | 1,528,014 | +0.2% | 54,572 |
 | Marzo | 1,652,488 | +8.1% | 53,306 |
+
+- **Horas pico entre semana:** el uso se concentra a las 8 de la mañana y a
+  las 6 de la tarde. Los viajes iniciados de 7:00 a 8:59 y de 17:00 a 18:59
+  suman el 31.5% de todos los viajes de lunes a viernes. El pico de la tarde
+  (17.6%) es mayor que el de la mañana (13.9%). La hora con más viajes del
+  trimestre es el martes a las 18:00, con 73,667.
+- **Fin de semana:** el patrón cambia. No hay pico de entrada ni de salida;
+  el uso sube despacio y alcanza su máximo al mediodía (domingo a las 12:00,
+  46,864 viajes; sábado a las 14:00, 41,980). Un día de fin de semana tiene
+  36,312 viajes en promedio, contra 58,767 de un día entre semana, y los
+  viajes duran más: 17.3 minutos en promedio.
+- **Viernes:** la tarde se adelanta. A las 15:00 hay casi tantos viajes
+  (61,317) como a las 18:00 (61,869).
+- **Horario:** no hay viajes entre la 1:00 y las 4:59, porque el servicio no
+  opera de madrugada.
 
 ## Datos
 Fuente: Datos abiertos de Ecobici (ecobici.cdmx.gob.mx/datos-abiertos)
@@ -115,12 +132,6 @@ positivo, que las acumula. Todas están documentadas en
   cada estación.
 - 40 salidas y 18 llegadas corresponden a estaciones que no aparecen en el
   catálogo de cicloestaciones y se muestran sin nombre.
-- Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
-  faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
-
-## Limitaciones
-- 40 viajes corresponden a estaciones que no aparecen en el catálogo
-  de cicloestaciones y se muestran sin nombre.
 - Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
   faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
 
