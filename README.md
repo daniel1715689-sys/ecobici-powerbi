@@ -68,6 +68,36 @@ falten ni sobren?
 - **Horario:** no hay viajes entre la 1:00 y las 4:59, porque el servicio no
   opera de madrugada.
 
+- **Flujo diario:** el balance se invierte entre la mañana y la tarde, lo que
+  muestra un patrón de ida y vuelta al trabajo.
+
+| Estación | Mañana (6:00 a 9:59) | Tarde (16:00 a 20:59) |
+| --- | --- | --- |
+| 271-272 · Jesus Garcia y Carlos J. Meneses (Buenavista) | -8,900 | +27,000 |
+| 273-274 · Luis Donaldo Colosio y Jesus Garcia (Buenavista) | -8,800 | +13,000 |
+| 014 · Av. Paseo de la Reforma y Rio de la Plata | +7,900 | -4,000 |
+
+  En la mañana, Buenavista se vacía y las estaciones de Paseo de la Reforma y
+  Polanco se llenan: la gente llega en transporte o metro y termina su trayecto en
+  bicicleta hacia las zonas de oficinas. En la tarde ocurre lo contrario.
+
+- **Asimetría:** a Buenavista llegan en la tarde muchas más bicicletas de las
+  que salen de ahí en la mañana. Por eso acumula más de 20 mil bicicletas en
+  el trimestre, y el poniente acumula el déficit.
+
+## Recomendación
+
+Programar la redistribución según la hora, no solo por estación:
+
+1. **Antes de las 16:00, liberar espacios en Buenavista.** Es la estación que
+   más llegadas recibe en la tarde; si se llena, los usuarios no pueden
+   devolver la bicicleta.
+2. **Durante la noche, regresar bicicletas de Buenavista al poniente.** El
+   excedente de Buenavista cubre de sobra sus salidas de la mañana, y el
+   poniente (Polanco) es la zona que termina el día con faltantes.
+3. **En la mañana, tener espacios libres sobre Paseo de la Reforma.** Son las
+   estaciones que más bicicletas reciben en la hora de entrada al trabajo.
+
 ## Datos
 Fuente: Datos abiertos de Ecobici (ecobici.cdmx.gob.mx/datos-abiertos)
 Fuente: Diccionario de datos y cicloestaciones Ecobici (https://www.datos.cdmx.gob.mx/dataset/cicloestaciones-ecobici-nuevo-sistema)
