@@ -10,6 +10,10 @@ estaciones y horarios faltan o sobran bicicletas.
 
 ![Página de resumen del reporte](images/portada.png)
 
+![Página de usuarios y rutas](images/usuarios.png)
+
+![Modelo de datos](images/modelo.png)
+
 ## Pregunta de negocio
 
 ¿En qué estaciones y horarios debería Ecobici mover bicicletas para que no
@@ -31,8 +35,9 @@ falten ni sobren?
 | 266-267 · Jesus Garcia y Carlos J. Meneses | 11,462 | 20,796 | +9,334 |
 | 273-274 · Luis Donaldo Colosio y Jesus Garcia | 14,880 | 20,980 | +6,100 |
 
-  Por confirmar: estas estaciones están junto a la terminal de Buenavista, lo
-  que sugiere viajes para conectar con tren y metro.
+  Las tres están junto a la terminal de Buenavista (tren suburbano y metro).
+  El filtro por franja horaria confirma que son viajes de conexión con el
+  transporte masivo (ver "Flujo diario").
 
 - **Estaciones que pierden bicicletas:** 376 estaciones tuvieron más salidas
   que llegadas en el trimestre. Las de mayor déficit:
@@ -85,6 +90,17 @@ falten ni sobren?
   que salen de ahí en la mañana. Por eso acumula más de 20 mil bicicletas en
   el trimestre, y el poniente acumula el déficit.
 
+- **Usuarios:** las mujeres hacen el 27.7% de los viajes. El grupo de 25 a 34
+  años es el que más viaja, con cerca del doble de viajes que el de 35 a 44.
+- **Duración:** la mayoría de los viajes dura menos de 15 minutos; el rango más
+  frecuente es de 5 a 10 minutos y casi ninguno pasa de 45.
+- **Rutas:** no hay un corredor dominante. Las 10 rutas más usadas suman 17,340
+  viajes, el 0.4% del total. Varias aparecen en pares de ida y vuelta entre las
+  mismas estaciones (621 ↔ 618, 494 ↔ 486, 548 ↔ 498), con viajes de 5 a 12
+  minutos. La excepción es la 710 · Molino del Rey y Glorieta de la Lealtad,
+  donde muchos viajes empiezan y terminan en la misma estación y duran 37
+  minutos en promedio: son paseos, no traslados.
+
 ## Recomendación
 
 Programar la redistribución según la hora, no solo por estación:
@@ -105,18 +121,15 @@ Fuente: Diccionario de datos y cicloestaciones Ecobici (https://www.datos.cdmx.g
 - Periodo: enero a marzo de 2026
 - Volumen: 4,707,285 viajes originales; 4,705,183 después de la limpieza
 
-- Los archivos mensuales parecen organizarse por fecha de arribo, por lo que
-  faltan los viajes que iniciaron el 31 de marzo y terminaron el 1 de abril.
-
 - Catálogo de cicloestaciones: se descarga en formato .dbf y se convirtió a
   Excel para cargarlo en Power BI
 
 ## Limpieza de datos
-Se eliminaron 2,102 registros (0.04% del total) con estas reglas:
+Se eliminaron 2,663 registros (0.06% del total) con estas reglas:
 
 | Regla | Registros eliminados |
 | --- | --- |
-| Duración menor a 1 minuto o mayor a 180 minutos | 1,737 |
+| Duración menor a 1 minuto o mayor a 180 minutos | 2,298 |
 | Estación de retiro o de arribo vacía | 0 |
 | Edad fuera del rango de 16 a 90 años | 289 |
 | Viajes iniciados el 31 de diciembre de 2025 | 76 |
@@ -128,6 +141,8 @@ Otras transformaciones en Power Query:
 - Identificadores de estación tratados como texto, para conservar los ceros a
   la izquierda (`059`) y los identificadores dobles (`271-272`).
 - Columnas calculadas: duración en minutos, hora del día, grupo de edad y ruta.
+- Columna calculada en DAX `Ruta Nombre`, que muestra la ruta con los nombres
+  de las estaciones de origen y destino.
 
 ## Modelo de datos
 
