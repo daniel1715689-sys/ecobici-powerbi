@@ -10,9 +10,21 @@ estaciones y horarios faltan o sobran bicicletas.
 
 ![Página de resumen del reporte](images/portada.png)
 
-![Página de usuarios y rutas](images/usuarios.png)
+## Páginas del reporte
 
-![Modelo de datos](images/modelo.png)
+| Página | Pregunta que responde |
+| --- | --- |
+| Resumen | ¿Cuánto y cuándo se usa Ecobici? |
+| Estaciones | ¿Dónde faltan y dónde sobran bicicletas, y a qué hora? |
+| Usuarios y rutas | ¿Quién viaja, cuánto duran los viajes y entre qué estaciones? |
+
+Además, cada estación tiene una página de detalle (clic derecho → Obtener
+detalles) con sus salidas y llegadas por hora, y el mapa muestra un tooltip
+personalizado con el balance de la estación.
+
+![Página de estaciones](images/estaciones.png)
+
+![Página de usuarios y rutas](images/usuarios.png)
 
 ## Pregunta de negocio
 
@@ -21,7 +33,7 @@ falten ni sobren?
 
 ## Hallazgos preliminares
 
-- **Uso diario:** en promedio se realizan 52,280 viajes por día.
+- **Uso diario:** en promedio se realizan 52,274 viajes por día.
 - **Duración:** un viaje dura en promedio 15.2 minutos, y casi no cambia de
   un mes a otro (15.0 en enero, 15.2 en febrero y marzo).
 - **Uso laboral:** el 79.9% de los viajes ocurre de lunes a viernes, aunque esos
@@ -44,9 +56,11 @@ falten ni sobren?
 
 | Estación | Salidas | Llegadas | Balance neto |
 | --- | --- | --- | --- |
-| 208 · Hesiodo y Lamartine | 29,686 | 25,129 | -4,557 |
+| 208 · Hesiodo y Lamartine | 29,686 | 25,128 | -4,558 |
 | 237-238 · Andres Bello y George Eliot | 17,375 | 13,826 | -3,549 |
 | 495 · Amado Nervo y Avenida de los Maestros | 16,610 | 13,251 | -3,359 |
+
+  Se concentran en el poniente de la red, sobre todo en Polanco.
 
 - **Uso por mes:** marzo fue el mes con más viajes, 8.1% arriba de febrero.
   Febrero casi iguala a enero con tres días menos, por lo que tuvo el
@@ -54,22 +68,22 @@ falten ni sobren?
 
 | Mes | Viajes | Variación mensual | Viajes por día |
 | --- | --- | --- | --- |
-| Enero | 1,524,681 | | 49,183 |
-| Febrero | 1,528,014 | +0.2% | 54,572 |
-| Marzo | 1,652,488 | +8.1% | 53,306 |
+| Enero | 1,524,491 | | 49,177 |
+| Febrero | 1,527,836 | +0.2% | 54,566 |
+| Marzo | 1,652,295 | +8.1% | 53,300 |
 
 - **Horas pico entre semana:** el uso se concentra a las 8 de la mañana y a
   las 6 de la tarde. Los viajes iniciados de 7:00 a 8:59 y de 17:00 a 18:59
   suman el 31.5% de todos los viajes de lunes a viernes. El pico de la tarde
   (17.6%) es mayor que el de la mañana (13.9%). La hora con más viajes del
-  trimestre es el martes a las 18:00, con 73,667.
+  trimestre es el martes a las 18:00, con 73,660.
 - **Fin de semana:** el patrón cambia. No hay pico de entrada ni de salida;
   el uso sube despacio y alcanza su máximo al mediodía (domingo a las 12:00,
-  46,864 viajes; sábado a las 14:00, 41,980). Un día de fin de semana tiene
-  36,312 viajes en promedio, contra 58,767 de un día entre semana, y los
-  viajes duran más: 17.3 minutos en promedio.
+  46,861 viajes; sábado a las 14:00, 41,977). Un día de fin de semana tiene
+  36,308 viajes en promedio, contra 58,760 de un día entre semana, y los
+  viajes duran más: 17.3 minutos en promedio, contra 14.6 entre semana.
 - **Viernes:** la tarde se adelanta. A las 15:00 hay casi tantos viajes
-  (61,317) como a las 18:00 (61,869).
+  (61,308) como a las 18:00 (61,865).
 - **Horario:** no hay viajes entre la 1:00 y las 4:59, porque el servicio no
   opera de madrugada.
 
@@ -78,9 +92,9 @@ falten ni sobren?
 
 | Estación | Mañana (6:00 a 9:59) | Tarde (16:00 a 20:59) |
 | --- | --- | --- |
-| 271-272 · Jesus Garcia y Carlos J. Meneses (Buenavista) | -8,900 | +27,000 |
-| 273-274 · Luis Donaldo Colosio y Jesus Garcia (Buenavista) | -8,800 | +13,000 |
-| 014 · Av. Paseo de la Reforma y Rio de la Plata | +7,900 | -4,000 |
+| 271-272 · Jesus Garcia y Carlos J. Meneses (Buenavista) | -8,925 | +26,515 |
+| 273-274 · Luis Donaldo Colosio y Jesus Garcia (Buenavista) | -8,775 | +12,970 |
+| 014 · Av. Paseo de la Reforma y Rio de la Plata | +7,940 | -4,032 |
 
   En la mañana, Buenavista se vacía y las estaciones de Paseo de la Reforma y
   Polanco se llenan: la gente llega en transporte o metro y termina su trayecto en
@@ -119,7 +133,7 @@ Fuente: Datos abiertos de Ecobici (ecobici.cdmx.gob.mx/datos-abiertos)
 Fuente: Diccionario de datos y cicloestaciones Ecobici (https://www.datos.cdmx.gob.mx/dataset/cicloestaciones-ecobici-nuevo-sistema)
 
 - Periodo: enero a marzo de 2026
-- Volumen: 4,707,285 viajes originales; 4,705,183 después de la limpieza
+- Volumen: 4,707,285 viajes originales; 4,704,622 después de la limpieza
 
 - Catálogo de cicloestaciones: se descarga en formato .dbf y se convirtió a
   Excel para cargarlo en Power BI
@@ -159,10 +173,6 @@ Esquema de estrella con una tabla de hechos y tres dimensiones:
 (relación activa) y por estación de arribo (relación inactiva, que se activa
 en la medida `Llegadas` con `USERELATIONSHIP`).
 
-<!-- PENDIENTE: captura de la vista de modelo
-![Modelo de datos](images/modelo.png)
--->
-
 ## Medidas DAX
 
 El reporte usa 9 medidas principales y 3 de apoyo. La principal es `Balance Neto` (llegadas menos
@@ -173,6 +183,9 @@ positivo, que las acumula. Todas están documentadas en
 ## Limitaciones
 
 - El análisis cubre 3 meses, por lo que no refleja estacionalidad.
+- Además de M y F, la columna de género trae los valores "O" y "?", que el
+  portal de datos abiertos no documenta. Se conservaron tal cual; el porcentaje
+  de viajes de mujeres se calcula sobre el total, incluidos esos valores.
 - El balance neto mide el flujo de viajes, no cuántas bicicletas había en
   cada estación.
 - 40 salidas y 18 llegadas corresponden a estaciones que no aparecen en el
