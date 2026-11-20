@@ -10,6 +10,10 @@ estaciones y horarios faltan o sobran bicicletas.
 
 ![Página de resumen del reporte](images/portada.png)
 
+![Demostración de la interactividad del reporte](images/demo.gif)
+
+[Ver el reporte completo en PDF](report/ecobici.pdf) · [Descargar el archivo de Power BI](report/ecobici.pbix)
+
 ## Páginas del reporte
 
 | Página | Pregunta que responde |
@@ -202,3 +206,12 @@ Power BI Desktop, Power Query, DAX
 2. Descarga el catálogo de cicloestaciones (ver `data/README.md`).
 3. Abre `report/ecobici.pbix` y actualiza la ruta de la carpeta de datos.
 4. Actualiza los datos.
+
+## Autor
+
+**Alan Daniel Rojas Serrano** · [LinkedIn](www.linkedin.com/in/alan-daniel-rojas-serrano-9410b9358)
+
+---
+
+Proyecto personal de análisis con datos abiertos. No está afiliado a Ecobici
+ni al Gobierno de la Ciudad de México.
