@@ -6,8 +6,6 @@ Análisis de viajes de Ecobici CDMX en Power BI
 Análisis de los viajes de Ecobici en Power BI para identificar en qué
 estaciones y horarios faltan o sobran bicicletas.
 
-**Estado:** en construcción. Modelo y medidas terminados; reporte en proceso.
-
 ![Página de resumen del reporte](images/portada.png)
 
 ![Demostración de la interactividad del reporte](images/demo.gif)
