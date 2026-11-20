@@ -1,6 +1,6 @@
 # Medidas DAX
 
-Las 9 medidas principales del reporte y 3 de apoyo, guardadas en la tabla `Medidas` del modelo.
+Las 9 medidas principales del reporte y 5 de apoyo, guardadas en la tabla `Medidas` del modelo.
 Los valores de validación corresponden al periodo completo
 (enero a marzo de 2026), sin filtros.
 
@@ -27,7 +27,7 @@ de casi todas las demás medidas.
 Total Viajes = COUNTROWS ( Viajes )
 ```
 
-Validación: 4,705,183, igual al número de filas cargadas.
+Validación: 4,704,622, igual al número de filas cargadas.
 
 ## Viajes por Dia
 
@@ -37,7 +37,7 @@ Calcula el total de cada día del calendario y promedia esos totales.
 Viajes por Dia = AVERAGEX ( VALUES ( Calendario[Fecha] ), [Total Viajes] )
 ```
 
-Validación: 52,280, que equivale a 4,705,183 viajes entre 90 días.
+Validación: 52,274, que equivale a 4,704,622 viajes entre 90 días.
 
 ## Duracion Promedio (min)
 
@@ -47,8 +47,7 @@ Promedio de la duración de los viajes, en minutos.
 Duracion Promedio (min) = AVERAGE ( Viajes[Duracion_Min] )
 ```
 
-Validación: 15.15 minutos en el periodo completo (enero 15.02, febrero 15.20,
-marzo 15.23).
+Validación: 15.16 minutos en el periodo completo.
 
 ## Salidas
 
@@ -72,7 +71,7 @@ CALCULATE (
 )
 ```
 
-Validación: el total es 4,705,183, igual al de `Salidas`, porque cada viaje
+Validación: el total es 4,704,622, igual al de `Salidas`, porque cada viaje
 tiene una salida y una llegada.
 
 ## Balance Neto
@@ -129,15 +128,19 @@ Proporción de viajes realizados de lunes a viernes.
 % Viajes Entre Semana =
 DIVIDE (
     CALCULATE ( [Total Viajes], Calendario[Tipo Dia] = "Entre semana" ),
-    [Total Viajes]
+    CALCULATE ( [Total Viajes], ALL ( Calendario[Tipo Dia] ) )
 )
 ```
+
+El denominador usa `ALL ( Calendario[Tipo Dia] )` para ignorar el filtro de
+tipo de día. Sin él, al elegir "Fin de semana" en el segmentador la medida
+dividía todos los viajes entre semana entre los de fin de semana y daba 398.4%.
 
 Validación: 79.9%.
 
 ## Medidas de apoyo
 
-Tres medidas adicionales para la página de estaciones.
+Medidas adicionales para las páginas de estaciones, de detalle y de usuarios.
 
 ### Ranking Estacion
 
@@ -176,3 +179,44 @@ DIVIDE ( [Total Viajes], CALCULATE ( [Total Viajes], ALL ( Estaciones ) ) )
 ```
 
 Validación: la columna suma 100%.
+
+### Estacion Seleccionada
+
+Nombre de la estación filtrada. Se usa como título en la página de detalle y
+en el tooltip del mapa. Si hay más de una estación en el contexto, muestra
+"Varias estaciones".
+
+```dax
+Estacion Seleccionada =
+SELECTEDVALUE ( Estaciones[Nombre], "Varias estaciones" )
+```
+
+### % Viajes Mujeres
+
+Proporción de viajes realizados por mujeres.
+
+```dax
+% Viajes Mujeres =
+DIVIDE (
+    CALCULATE ( [Total Viajes], Viajes[Genero_Usuario] = "F" ),
+    [Total Viajes]
+)
+```
+
+Validación: 27.7%.
+
+## Columna calculada
+
+### Ruta Nombre
+
+Ruta con los nombres de las estaciones de origen y destino, en la tabla
+`Viajes`. `RELATED` trae el origen por la relación activa; el destino se busca
+con `LOOKUPVALUE` porque su relación está inactiva.
+
+```dax
+Ruta Nombre =
+RELATED ( Estaciones[Nombre] ) & " → " &
+LOOKUPVALUE ( Estaciones[Nombre], Estaciones[Estacion_ID], Viajes[Ciclo_EstacionArribo] )
+```
+
+Validación: las 10 rutas más usadas suman 17,340 viajes.

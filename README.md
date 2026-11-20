@@ -209,7 +209,7 @@ Power BI Desktop, Power Query, DAX
 
 ## Autor
 
-**Alan Daniel Rojas Serrano** · [LinkedIn](www.linkedin.com/in/alan-daniel-rojas-serrano-9410b9358)
+**Alan Daniel Rojas Serrano** · [LinkedIn](https://www.linkedin.com/in/alan-daniel-rojas-serrano-9410b9358)
 
 ---
 
